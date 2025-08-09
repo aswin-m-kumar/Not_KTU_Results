@@ -44,19 +44,19 @@ python -m http.server 8000
 For Software:
 
 # Screenshots
-![Homepage](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/homepage.png)
+![Homepage](https://drive.google.com/file/d/1Emd63Mqo_hPB1Fy2PyOm7HyrREtO0zBt/view?usp=drive_link)
 *The deceptively professional homepage that lures unsuspecting students into a false sense of security*
 
-![Login Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/login.png)
+![Login Page](https://drive.google.com/file/d/1uBJ3mGdiFF77q2ahFU8WYt7vJw5ev7Ne/view?usp=drive_link)
 *Clean login interface - the calm before the storm of password requirements*
 
-![Password Game](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/password.png)
+![Password Game](https://drive.google.com/file/d/1EarXL9L51d5JjBeehR9ceRjQC2tG6LIO/view?usp=drive_link)
 *The infamous password game where sanity goes to die - featuring progressive requirements like "numbers must add up to 10" and "must include a Roman numeral"*
 
-![FAQ Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/faq.png)
+![FAQ Page](https://drive.google.com/file/d/1O4lPoZqAzr1xLeftpsoOoVB68OK9wGxw/view?usp=drive_link)
 *Brutally honest FAQ responses that tell students exactly what they need to hear*
 
-![504 Error](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/504.png)
+![504 Error](https://drive.google.com/file/d/1M5635wDgzMLmCOS92sLZTWsb0fLs2O9b/view?usp=drive_link)
 *The pièce de résistance - the inevitable 504 Gateway Timeout that appears right when results should load*
 
 # Architecture Flow
@@ -116,7 +116,7 @@ User Journey:
 *Warning: May cause flashbacks to actual university portal experiences*
 
 # Screenshots Gallery
-📸 **[Complete Screenshot Collection](https://drive.google.com/drive/folders/1lTGzuU6npYFP2UtOhg01wLILBUckethd?usp=drive_link)**
+📸 **[Complete Screenshot Collection](https://drive.google.com/file/d/1M5635wDgzMLmCOS92sLZTWsb0fLs2O9b/view?usp=drive_link)**
 
 ## Team Contributions
 - **Aswin M Kumar**: UI/UX design, responsive layouts, sarcastic content creation, and perfecting the 504 timeout experience
