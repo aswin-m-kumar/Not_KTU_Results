@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Not_KTU_results</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Shared Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="flex flex-col min-h-screen text-gray-800">
+
+    <!-- =========== SHARED HEADER =========== -->
+    <header class="header-blue text-white shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                     <a href="index.html" class="flex items-center">
+                        <i class="fas fa-graduation-cap text-2xl mr-3"></i>
+                        <h1 class="text-xl font-bold">Not_KTU_results e-Governance Portal</h1>
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center space-x-4">
+                    <a href="index.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="#" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Announcements</a>
+                    <a href="#" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- =========== MAIN CONTENT AREA =========== -->
+    <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 flex items-center justify-center">
+        <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full icon-circle flex items-center justify-center"><i class="fas fa-university text-2xl text-sky-700"></i></div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">For Institutions</h3>
+                        <p class="text-gray-600 text-sm mt-1">Login to manage affiliation, student data, and academic details.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-start space-x-4">
+                    <div class="flex-shrink-0 w-12 h-12 rounded-full icon-circle flex items-center justify-center"><i class="fas fa-user-graduate text-2xl text-sky-700"></i></div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">For Students</h3>
+                        <p class="text-gray-600 text-sm mt-1">Access your results, attendance, and other academic records.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-sky-100 p-6 rounded-lg shadow-md border border-sky-200">
+                <h3 class="text-xl font-semibold text-gray-700 text-center mb-4">Sign In</h3>
+                <form action="change-password.html" class="space-y-4">
+                    <div class="mb-4">
+                        <label for="username" class="block text-sm font-medium text-gray-600 mb-1">Username</label>
+                        <input type="text" id="username" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Enter any username">
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-sm font-medium text-gray-600 mb-1">Password</label>
+                        <input type="password" id="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Enter any password">
+                    </div>
+                    <button type="submit" class="w-full login-green-button text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                        Login
+                    </button>
+                    <div class="text-center mt-4">
+                        <a href="#" class="text-sm text-sky-600 hover:underline">Forgot password?</a>
+                    </div>
+                    <div class="text-center mt-2">
+                        <a href="#" class="text-sm text-gray-600 hover:underline">Don't have an account? Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- =========== SHARED FOOTER =========== -->
+    <footer class="footer-blue text-white text-center p-4 mt-auto">
+        <p>Copyright &copy; 2025 - Not_KTU_results. Made just for fun ❤️.</p>
+    </footer>
+
+</body>
+</html>
