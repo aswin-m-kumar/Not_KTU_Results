@@ -56,7 +56,7 @@ For Software:
 ![FAQ Page](screenshot4.png)
 *Brutally honest FAQ responses that tell students exactly what they need to hear*
 
-![504 Error](screenshot5.png)
+![504 Error](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/504.png)
 *The pièce de résistance - the inevitable 504 Gateway Timeout that appears right when results should load*
 
 # Architecture Flow
