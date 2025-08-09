@@ -119,8 +119,8 @@ User Journey:
 📸 **[Complete Screenshot Collection](https://drive.google.com/drive/folders/1lTGzuU6npYFP2UtOhg01wLILBUckethd?usp=drive_link)**
 
 ## Team Contributions
-- **Aswin M Kumar**: Frontend wizardry, password game logic, sound integration, and the art of digital disappointment
-- **Anupam Manoj**: UI/UX design, responsive layouts, sarcastic content creation, and perfecting the 504 timeout experience
+- **Aswin M Kumar**: UI/UX design, responsive layouts, sarcastic content creation, and perfecting the 504 timeout experience
+- **Anupam Manoj**: Frontend wizardry, password game logic, sound integration, and the art of digital disappointment
 
 ## Why This Project Is Perfectly Useless
 
