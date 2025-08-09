@@ -44,19 +44,19 @@ python -m http.server 8000
 For Software:
 
 # Screenshots
-![Homepage](https://drive.google.com/file/d/1Emd63Mqo_hPB1Fy2PyOm7HyrREtO0zBt/view?usp=drive_link)
+![Homepage](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/assets/homepage.png)
 *The deceptively professional homepage that lures unsuspecting students into a false sense of security*
 
-![Login Page](https://drive.google.com/file/d/1uBJ3mGdiFF77q2ahFU8WYt7vJw5ev7Ne/view?usp=drive_link)
+![Login Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/assets/login.png)
 *Clean login interface - the calm before the storm of password requirements*
 
-![Password Game](https://drive.google.com/file/d/1EarXL9L51d5JjBeehR9ceRjQC2tG6LIO/view?usp=drive_link)
+![Password Game](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/assets/password.png)
 *The infamous password game where sanity goes to die - featuring progressive requirements like "numbers must add up to 10" and "must include a Roman numeral"*
 
-![FAQ Page](https://drive.google.com/file/d/1O4lPoZqAzr1xLeftpsoOoVB68OK9wGxw/view?usp=drive_link)
+![FAQ Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/assets/faq.png)
 *Brutally honest FAQ responses that tell students exactly what they need to hear*
 
-![504 Error](https://drive.google.com/file/d/1M5635wDgzMLmCOS92sLZTWsb0fLs2O9b/view?usp=drive_link)
+![504 Error](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/assets/504.png)
 *The pièce de résistance - the inevitable 504 Gateway Timeout that appears right when results should load*
 
 # Architecture Flow
