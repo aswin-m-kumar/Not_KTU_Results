@@ -116,7 +116,7 @@ User Journey:
 *Warning: May cause flashbacks to actual university portal experiences*
 
 # Screenshots Gallery
-📸 **[Complete Screenshot Collection](https://drive.google.com/file/d/1M5635wDgzMLmCOS92sLZTWsb0fLs2O9b/view?usp=drive_link)**
+📸 **[Complete Screenshot Collection](https://drive.google.com/drive/folders/1lTGzuU6npYFP2UtOhg01wLILBUckethd?usp=drive_link)**
 
 ## Team Contributions
 - **Aswin M Kumar**: UI/UX design, responsive layouts, sarcastic content creation, and perfecting the 504 timeout experience
