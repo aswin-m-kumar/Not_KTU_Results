@@ -50,7 +50,7 @@ For Software:
 ![Login Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/login.png)
 *Clean login interface - the calm before the storm of password requirements*
 
-![Password Game](screenshot3.png)
+![Password Game](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/password.png)
 *The infamous password game where sanity goes to die - featuring progressive requirements like "numbers must add up to 10" and "must include a Roman numeral"*
 
 ![FAQ Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/faq.png)
