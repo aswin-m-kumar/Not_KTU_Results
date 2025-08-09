@@ -47,7 +47,7 @@ For Software:
 ![Homepage](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/homepage.png)
 *The deceptively professional homepage that lures unsuspecting students into a false sense of security*
 
-![Login Page](screenshot2.png)
+![Login Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/login.png)
 *Clean login interface - the calm before the storm of password requirements*
 
 ![Password Game](screenshot3.png)
