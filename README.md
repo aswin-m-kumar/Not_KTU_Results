@@ -53,7 +53,7 @@ For Software:
 ![Password Game](screenshot3.png)
 *The infamous password game where sanity goes to die - featuring progressive requirements like "numbers must add up to 10" and "must include a Roman numeral"*
 
-![FAQ Page](screenshot4.png)
+![FAQ Page](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/faq.png)
 *Brutally honest FAQ responses that tell students exactly what they need to hear*
 
 ![504 Error](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/504.png)
