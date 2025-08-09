@@ -111,7 +111,7 @@ User Journey:
 
 ### Project Demo
 # Live Demo
-🔗 **[Experience the Disappointment Live on GitHub Pages](your-github-pages-link)**
+🔗 **[Experience the Disappointment Live on GitHub Pages](https://aswin-m-kumar.github.io/Not_KTU_Results/)**
 
 *Warning: May cause flashbacks to actual university portal experiences*
 
