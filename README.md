@@ -44,7 +44,7 @@ python -m http.server 8000
 For Software:
 
 # Screenshots
-![Homepage](screenshot1.png)
+![Homepage](https://github.com/aswin-m-kumar/Not_KTU_Results/blob/main/asset/homepage.png)
 *The deceptively professional homepage that lures unsuspecting students into a false sense of security*
 
 ![Login Page](screenshot2.png)
