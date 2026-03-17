@@ -7,22 +7,33 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        // This script enables the group-open variant in Tailwind JIT CDN
-        tailwind.config = {
-          theme: {
-            extend: {
-              // No extensions needed for this, but this is where you'd put them
-            }
-          },
-          variants: {
-            extend: {
-              rotate: ['group-open'],
-              maxHeight: ['group-open'],
-            }
-          }
+    <style>
+        /* FIX: Tailwind CDN v3 JIT does not support group-open variant via config.
+           Replace with JS-driven accordion using custom CSS transitions. */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, padding 0.3s ease;
+            padding-top: 0;
+            padding-bottom: 0;
         }
-    </script>
+        .faq-answer.open {
+            max-height: 12rem; /* ~192px, equivalent to max-h-48 */
+            padding-top: 1rem;
+            padding-bottom: 0.25rem;
+        }
+        .faq-chevron {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.open .faq-chevron {
+            transform: rotate(180deg);
+        }
+        /* FIX: card-hover items had animation-delay but no animation — give them staggered fade-in */
+        .card-stagger {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen text-gray-800">
 
@@ -31,7 +42,7 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center">
-                        <img src="assets/logo.png" alt="Not KTU Logo" class="h-10 mr-3">
+                        <img src="assets/logo.png" alt="Not KTU Logo" class="h-10 mr-3" onerror="this.style.display='none'">
                         <h1 class="text-xl font-bold">Not_KTU_results e-Governance Portal</h1>
                     </a>
                 </div>
@@ -57,66 +68,69 @@
             <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">Frequently Asked Questions</h2>
             <p class="text-gray-600 mb-8 text-center">Your most pressing questions, answered with 100% accuracy (maybe).</p>
 
-            <div class="space-y-4">
-                <details class="group bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition hover:shadow-md">
-                    <summary class="font-semibold text-lg text-sky-800 flex justify-between items-center list-none">
-                        Why are the results always late?
-                        <i class="fas fa-chevron-down text-sky-600 transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <div class="overflow-hidden max-h-0 group-open:max-h-48 transition-all duration-500 ease-in-out">
-                        <p class="text-gray-700 mt-4 pt-4 border-t">Our hamsters are typing as fast as they can. We're considering upgrading them to guinea pigs next semester for faster processing.</p>
-                    </div>
-                </details>
+            <!-- FIX: Replaced <details>/<summary> + Tailwind group-open (broken in CDN v3) with
+                 JS-driven accordion. All animations now work correctly. -->
+            <div class="space-y-4" id="faq-container">
 
-                <details class="group bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition hover:shadow-md">
-                    <summary class="font-semibold text-lg text-sky-800 flex justify-between items-center list-none">
-                        Is it possible to get a 10 SGPA?
-                        <i class="fas fa-chevron-down text-sky-600 transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <div class="overflow-hidden max-h-0 group-open:max-h-48 transition-all duration-500 ease-in-out">
-                        <p class="text-gray-700 mt-4 pt-4 border-t">Yes, in the same way it's possible to find a unicorn. We've heard legends, but have yet to see concrete proof.</p>
+                <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.05s;">
+                    <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
+                        <span class="font-semibold text-lg text-sky-800">Why are the results always late?</span>
+                        <i class="fas fa-chevron-down text-sky-600 faq-chevron flex-shrink-0 ml-2"></i>
+                    </button>
+                    <div class="faq-answer px-4">
+                        <p class="text-gray-700 border-t pt-3 pb-3">Our hamsters are typing as fast as they can. We're considering upgrading them to guinea pigs next semester for faster processing.</p>
                     </div>
-                </details>
+                </div>
 
-                <details class="group bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition hover:shadow-md">
-                    <summary class="font-semibold text-lg text-sky-800 flex justify-between items-center list-none">
-                        My attendance is showing 74.9%. Can you round it up?
-                        <i class="fas fa-chevron-down text-sky-600 transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <div class="overflow-hidden max-h-0 group-open:max-h-48 transition-all duration-500 ease-in-out">
-                        <p class="text-gray-700 mt-4 pt-4 border-t">We use the same rounding logic as your bank account. So, no.</p>
+                <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.1s;">
+                    <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
+                        <span class="font-semibold text-lg text-sky-800">Is it possible to get a 10 SGPA?</span>
+                        <i class="fas fa-chevron-down text-sky-600 faq-chevron flex-shrink-0 ml-2"></i>
+                    </button>
+                    <div class="faq-answer px-4">
+                        <p class="text-gray-700 border-t pt-3 pb-3">Yes, in the same way it's possible to find a unicorn. We've heard legends, but have yet to see concrete proof.</p>
                     </div>
-                </details>
-                
-                <details class="group bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition hover:shadow-md">
-                    <summary class="font-semibold text-lg text-sky-800 flex justify-between items-center list-none">
-                        I forgot my password. What do I do?
-                        <i class="fas fa-chevron-down text-sky-600 transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <div class="overflow-hidden max-h-0 group-open:max-h-48 transition-all duration-500 ease-in-out">
-                        <p class="text-gray-700 mt-4 pt-4 border-t">Have you tried turning it off and on again? If that fails, please proceed to the password game. May the odds be ever in your favor.</p>
-                    </div>
-                </details>
+                </div>
 
-                <details class="group bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition hover:shadow-md">
-                    <summary class="font-semibold text-lg text-sky-800 flex justify-between items-center list-none">
-                        I can't log in. Is the server down?
-                        <i class="fas fa-chevron-down text-sky-600 transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <div class="overflow-hidden max-h-0 group-open:max-h-48 transition-all duration-500 ease-in-out">
-                        <p class="text-gray-700 mt-4 pt-4 border-t">No, the server is just shy. Try complimenting its uptime and maybe it will let you in.</p>
+                <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.15s;">
+                    <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
+                        <span class="font-semibold text-lg text-sky-800">My attendance is showing 74.9%. Can you round it up?</span>
+                        <i class="fas fa-chevron-down text-sky-600 faq-chevron flex-shrink-0 ml-2"></i>
+                    </button>
+                    <div class="faq-answer px-4">
+                        <p class="text-gray-700 border-t pt-3 pb-3">We use the same rounding logic as your bank account. So, no.</p>
                     </div>
-                </details>
-                
-                 <details class="group bg-white p-4 rounded-lg shadow-sm border border-gray-200 cursor-pointer transition hover:shadow-md">
-                    <summary class="font-semibold text-lg text-sky-800 flex justify-between items-center list-none">
-                        What is the meaning of life?
-                        <i class="fas fa-chevron-down text-sky-600 transition-transform duration-300 group-open:rotate-180"></i>
-                    </summary>
-                    <div class="overflow-hidden max-h-0 group-open:max-h-48 transition-all duration-500 ease-in-out">
-                        <p class="text-gray-700 mt-4 pt-4 border-t">That's beyond our pay grade. Our primary function is to deliver grades, not existential crises. Please consult the philosophy department.</p>
+                </div>
+
+                <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.2s;">
+                    <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
+                        <span class="font-semibold text-lg text-sky-800">I forgot my password. What do I do?</span>
+                        <i class="fas fa-chevron-down text-sky-600 faq-chevron flex-shrink-0 ml-2"></i>
+                    </button>
+                    <div class="faq-answer px-4">
+                        <p class="text-gray-700 border-t pt-3 pb-3">Have you tried turning it off and on again? If that fails, please proceed to the password game. May the odds be ever in your favor.</p>
                     </div>
-                </details>
+                </div>
+
+                <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.25s;">
+                    <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
+                        <span class="font-semibold text-lg text-sky-800">I can't log in. Is the server down?</span>
+                        <i class="fas fa-chevron-down text-sky-600 faq-chevron flex-shrink-0 ml-2"></i>
+                    </button>
+                    <div class="faq-answer px-4">
+                        <p class="text-gray-700 border-t pt-3 pb-3">No, the server is just shy. Try complimenting its uptime and maybe it will let you in.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.3s;">
+                    <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
+                        <span class="font-semibold text-lg text-sky-800">What is the meaning of life?</span>
+                        <i class="fas fa-chevron-down text-sky-600 faq-chevron flex-shrink-0 ml-2"></i>
+                    </button>
+                    <div class="faq-answer px-4">
+                        <p class="text-gray-700 border-t pt-3 pb-3">That's beyond our pay grade. Our primary function is to deliver grades, not existential crises. Please consult the philosophy department.</p>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -126,6 +140,31 @@
         <p>Copyright &copy; 2025 - Not_KTU_results. Made just for fun ❤️.</p>
     </footer>
 
-</body>
+    <script>
+        // FIX: JS accordion replacing broken Tailwind group-open CDN variant
+        document.querySelectorAll('.faq-item').forEach(item => {
+            const trigger = item.querySelector('.faq-trigger');
+            const answer = item.querySelector('.faq-answer');
 
+            trigger.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+
+                // Close all others (accordion behavior)
+                document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                    openItem.classList.remove('open');
+                    openItem.querySelector('.faq-answer').classList.remove('open');
+                    openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle clicked item
+                if (!isOpen) {
+                    item.classList.add('open');
+                    answer.classList.add('open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+    </script>
+
+</body>
 </html>

@@ -21,9 +21,16 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.login-green-button:hover {
+.login-green-button:hover:not(:disabled) {
     background-color: #008d4c;
     transform: translateY(-2px);
+}
+
+/* FIX: Disabled state styling for save button — no hover lift when disabled */
+.login-green-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .icon-circle {
@@ -56,7 +63,7 @@ body {
     animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Card hover effect for the homepage */
+/* Card hover effect */
 .card-hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -64,6 +71,14 @@ body {
 .card-hover:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+}
+
+/* FIX: card-stagger now actually animates with the delay set inline.
+   Previously, animation-delay on .card-hover had no effect because
+   there was no animation property defined on the class. */
+.card-stagger {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
 }
 
 /* Loading spinner animation */
