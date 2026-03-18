@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance - Not_KTU_results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Countdown digits */
+        .digit-block {
+            background: #1e293b;
+            color: #f1f5f9;
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: monospace;
+            min-width: 3rem;
+            text-align: center;
+            line-height: 1;
+        }
+        .digit-label {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 0.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Blinking colon */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+        .colon {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #64748b;
+            animation: blink 1s step-start infinite;
+            padding-bottom: 1.2rem;
+        }
+
+        /* Excuse fade transition */
+        #excuse-text {
+            transition: opacity 0.4s ease;
+        }
+        #excuse-text.fading {
+            opacity: 0;
+        }
+
+        /* Progress dots under timer */
+        .dot-row span {
+            display: inline-block;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            margin: 0 3px;
+            transition: background 0.3s ease;
+        }
+        .dot-row span.active {
+            background: #3c8dbc;
+        }
+
+        /* Reset flash */
+        @keyframes resetFlash {
+            0%   { background: #fef3c7; }
+            100% { background: transparent; }
+        }
+        .reset-flash {
+            animation: resetFlash 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-gray-800">
+
+    <header class="header-blue text-white shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="assets/logo.png" alt="Not KTU Logo" class="h-10 mr-3" onerror="this.style.display='none'">
+                        <h1 class="text-xl font-bold">Not_KTU_results e-Governance Portal</h1>
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center space-x-4">
+                    <a href="index.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="maintenance.html" class="bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Announcements</a>
+                    <a href="faq.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                    <a href="login.html" class="bg-white text-sky-800 hover:bg-gray-200 font-bold py-2 px-4 rounded-md text-sm transition duration-300">
+                        Login / Register
+                    </a>
+                </nav>
+                <div class="md:hidden">
+                    <a href="login.html" class="bg-white text-sky-800 hover:bg-gray-200 font-bold py-2 px-4 rounded-md text-sm transition duration-300">Login</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 fade-in flex items-center justify-center">
+        <div class="max-w-xl w-full">
+
+            <!-- Main card -->
+            <div id="main-card" class="bg-white rounded-xl shadow-md border border-gray-200 p-8 text-center space-y-6">
+
+                <!-- Icon -->
+                <div class="flex justify-center">
+                    <div class="w-20 h-20 rounded-full bg-yellow-100 flex items-center justify-center">
+                        <i class="fas fa-tools text-4xl text-yellow-500"></i>
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Scheduled Maintenance</h2>
+                    <p class="text-gray-500 text-sm mt-1">We're making improvements. (We promise.)</p>
+                </div>
+
+                <!-- Countdown timer -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-3">Back online in</p>
+                    <div class="flex items-end justify-center gap-1">
+                        <div>
+                            <div class="digit-block" id="min-tens">0</div>
+                            <div class="digit-label">min</div>
+                        </div>
+                        <div>
+                            <div class="digit-block" id="min-ones">5</div>
+                            <div class="digit-label">&nbsp;</div>
+                        </div>
+                        <div class="colon">:</div>
+                        <div>
+                            <div class="digit-block" id="sec-tens">0</div>
+                            <div class="digit-label">sec</div>
+                        </div>
+                        <div>
+                            <div class="digit-block" id="sec-ones">0</div>
+                            <div class="digit-label">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress dots (how many times has this reset) -->
+                <div class="dot-row" id="dot-row">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p id="reset-count-label" class="text-xs text-gray-400 -mt-3 hidden">
+                    Extended <span id="reset-count">0</span> time(s) so far.
+                </p>
+
+                <!-- Excuse -->
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">Current Activity</p>
+                    <p id="excuse-text" class="text-gray-700 text-sm font-medium">
+                        Performing routine database optimisation
+                    </p>
+                </div>
+
+                <!-- Fine print -->
+                <p class="text-xs text-gray-400 italic">
+                    * "5 minutes" is an estimate. Estimates are non-binding.
+                </p>
+
+            </div>
+
+            <!-- Reset notification (hidden, shown on each reset) -->
+            <div id="reset-notice" class="hidden mt-4 bg-yellow-50 border border-yellow-300 text-yellow-800 rounded-lg p-3 text-center text-sm">
+                🔄 <strong>Update:</strong> <span id="reset-notice-text">Maintenance has been extended.</span>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer-blue text-white text-center p-4 mt-auto">
+        <p>Copyright &copy; 2025 - Not_KTU_results. Made just for fun ❤️. |
+            <a href="grievance.html" class="underline hover:text-sky-200">Raise a Grievance</a>
+        </p>
+    </footer>
+
+    <script>
+    (function () {
+        const excuses = [
+            'Performing routine database optimisation',
+            'Rebooting the primary server hamster wheel',
+            'Applying critical security patches (from 2019)',
+            'Migrating data to a more confused server',
+            'Defragmenting the academic integrity module',
+            'Recalibrating the grade distribution algorithm',
+            'Updating SSL certificates (they expired in 2022)',
+            'Clearing cache that has been accumulating since S1',
+            'Performing emergency disk cleanup (please don\'t ask)',
+            'Negotiating with the load balancer',
+            'Teaching the server what a timeout is',
+            'Rounding up stray database transactions',
+            'Applying hotfix for last semester\'s incident',
+            'Consulting with the IT department (voicemail only)',
+        ];
+
+        const resetMessages = [
+            'We need just a little more time. 5 more minutes.',
+            'Almost done! Just 5 more minutes. Definitely.',
+            'The database is being cooperative for once. 5 more minutes.',
+            'One final step remaining. Should be done in 5 minutes.',
+            'Unexpected complication. Back in 5 minutes. Sorry.',
+            'We\'ve escalated this to senior management. 5 minutes.',
+            'The hamster needed a break. Back in 5 minutes.',
+            'Server said "one more minute" — we\'ve given it 5.',
+            'This is the last extension. We mean it this time.',
+            'At this point we\'re as frustrated as you are. 5 mins.',
+        ];
+
+        const minTens = document.getElementById('min-tens');
+        const minOnes = document.getElementById('min-ones');
+        const secTens = document.getElementById('sec-tens');
+        const secOnes = document.getElementById('sec-ones');
+        const excuseEl= document.getElementById('excuse-text');
+        const dotRow  = document.getElementById('dot-row');
+        const dots    = dotRow.querySelectorAll('span');
+        const resetNotice     = document.getElementById('reset-notice');
+        const resetNoticeText = document.getElementById('reset-notice-text');
+        const resetCountLabel = document.getElementById('reset-count-label');
+        const resetCountEl    = document.getElementById('reset-count');
+        const mainCard        = document.getElementById('main-card');
+
+        let totalSeconds = 5 * 60; // 5 minutes
+        let resetCount   = 0;
+        let excuseIdx    = 0;
+
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function updateDisplay(secs) {
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            const ms = pad(m);
+            const ss = pad(s);
+            minTens.textContent = ms[0];
+            minOnes.textContent = ms[1];
+            secTens.textContent = ss[0];
+            secOnes.textContent = ss[1];
+        }
+
+        function cycleExcuse() {
+            excuseEl.classList.add('fading');
+            setTimeout(() => {
+                excuseIdx = (excuseIdx + 1) % excuses.length;
+                excuseEl.textContent = excuses[excuseIdx];
+                excuseEl.classList.remove('fading');
+            }, 400);
+        }
+
+        function updateDots() {
+            const active = Math.min(resetCount + 1, dots.length);
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i < active);
+            });
+        }
+
+        function onReset() {
+            resetCount++;
+            totalSeconds = 5 * 60;
+
+            // Update dots
+            updateDots();
+
+            // Show reset counter label
+            resetCountLabel.classList.remove('hidden');
+            resetCountEl.textContent = resetCount;
+
+            // Show reset notice with sarcastic message
+            const msg = resetMessages[(resetCount - 1) % resetMessages.length];
+            resetNoticeText.textContent = msg;
+            resetNotice.classList.remove('hidden');
+            setTimeout(() => resetNotice.classList.add('hidden'), 5000);
+
+            // Flash the card background
+            mainCard.classList.add('reset-flash');
+            setTimeout(() => mainCard.classList.remove('reset-flash'), 600);
+
+            // Change excuse
+            cycleExcuse();
+        }
+
+        // Cycle excuse every 45 seconds independently
+        setInterval(cycleExcuse, 45000);
+
+        // Main countdown tick
+        const ticker = setInterval(() => {
+            totalSeconds--;
+            updateDisplay(totalSeconds);
+
+            if (totalSeconds <= 0) {
+                // Reset silently
+                onReset();
+            }
+        }, 1000);
+
+        // Initial display
+        updateDisplay(totalSeconds);
+    })();
+    </script>
+
+</body>
+</html>

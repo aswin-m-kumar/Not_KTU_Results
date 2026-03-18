@@ -20,12 +20,8 @@
             padding-top: 1rem;
             padding-bottom: 0.25rem;
         }
-        .faq-chevron {
-            transition: transform 0.3s ease;
-        }
-        .faq-item.open .faq-chevron {
-            transform: rotate(180deg);
-        }
+        .faq-chevron { transition: transform 0.3s ease; }
+        .faq-item.open .faq-chevron { transform: rotate(180deg); }
     </style>
 </head>
 <body class="flex flex-col min-h-screen text-gray-800">
@@ -41,16 +37,14 @@
                 </div>
                 <nav class="hidden md:flex items-center space-x-4">
                     <a href="index.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <a href="504.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Announcements</a>
+                    <a href="maintenance.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Announcements</a>
                     <a href="faq.html" class="bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
                     <a href="login.html" class="bg-white text-sky-800 hover:bg-gray-200 font-bold py-2 px-4 rounded-md text-sm transition duration-300">
                         Login / Register
                     </a>
                 </nav>
                 <div class="md:hidden">
-                    <a href="login.html" class="bg-white text-sky-800 hover:bg-gray-200 font-bold py-2 px-4 rounded-md text-sm transition duration-300">
-                        Login
-                    </a>
+                    <a href="login.html" class="bg-white text-sky-800 hover:bg-gray-200 font-bold py-2 px-4 rounded-md text-sm transition duration-300">Login</a>
                 </div>
             </div>
         </div>
@@ -62,7 +56,6 @@
             <p class="text-gray-600 mb-8 text-center">Your most pressing questions, answered with 100% accuracy (maybe).</p>
 
             <div class="space-y-4" id="faq-container">
-
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.05s;">
                     <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
                         <span class="font-semibold text-lg text-sky-800">Why are the results always late?</span>
@@ -72,7 +65,6 @@
                         <p class="text-gray-700 border-t pt-3 pb-3">Our hamsters are typing as fast as they can. We're considering upgrading them to guinea pigs next semester for faster processing.</p>
                     </div>
                 </div>
-
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.1s;">
                     <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
                         <span class="font-semibold text-lg text-sky-800">Is it possible to get a 10 SGPA?</span>
@@ -82,7 +74,6 @@
                         <p class="text-gray-700 border-t pt-3 pb-3">Yes, in the same way it's possible to find a unicorn. We've heard legends, but have yet to see concrete proof.</p>
                     </div>
                 </div>
-
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.15s;">
                     <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
                         <span class="font-semibold text-lg text-sky-800">My attendance is showing 74.9%. Can you round it up?</span>
@@ -92,7 +83,6 @@
                         <p class="text-gray-700 border-t pt-3 pb-3">We use the same rounding logic as your bank account. So, no.</p>
                     </div>
                 </div>
-
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.2s;">
                     <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
                         <span class="font-semibold text-lg text-sky-800">I forgot my password. What do I do?</span>
@@ -102,7 +92,6 @@
                         <p class="text-gray-700 border-t pt-3 pb-3">Have you tried turning it off and on again? If that fails, please proceed to the password game. May the odds be ever in your favor.</p>
                     </div>
                 </div>
-
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.25s;">
                     <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
                         <span class="font-semibold text-lg text-sky-800">I can't log in. Is the server down?</span>
@@ -112,7 +101,6 @@
                         <p class="text-gray-700 border-t pt-3 pb-3">No, the server is just shy. Try complimenting its uptime and maybe it will let you in.</p>
                     </div>
                 </div>
-
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.3s;">
                     <button class="faq-trigger w-full text-left p-4 flex justify-between items-center" aria-expanded="false">
                         <span class="font-semibold text-lg text-sky-800">What is the meaning of life?</span>
@@ -122,29 +110,27 @@
                         <p class="text-gray-700 border-t pt-3 pb-3">That's beyond our pay grade. Our primary function is to deliver grades, not existential crises. Please consult the philosophy department.</p>
                     </div>
                 </div>
-
             </div>
         </div>
     </main>
 
     <footer class="footer-blue text-white text-center p-4 mt-auto">
-        <p>Copyright &copy; 2025 - Not_KTU_results. Made just for fun ❤️.</p>
+        <p>Copyright &copy; 2025 - Not_KTU_results. Made just for fun ❤️. |
+            <a href="grievance.html" class="underline hover:text-sky-200">Raise a Grievance</a>
+        </p>
     </footer>
 
     <script>
         document.querySelectorAll('.faq-item').forEach(item => {
             const trigger = item.querySelector('.faq-trigger');
-            const answer = item.querySelector('.faq-answer');
-
+            const answer  = item.querySelector('.faq-answer');
             trigger.addEventListener('click', () => {
                 const isOpen = item.classList.contains('open');
-
-                document.querySelectorAll('.faq-item.open').forEach(openItem => {
-                    openItem.classList.remove('open');
-                    openItem.querySelector('.faq-answer').classList.remove('open');
-                    openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+                document.querySelectorAll('.faq-item.open').forEach(o => {
+                    o.classList.remove('open');
+                    o.querySelector('.faq-answer').classList.remove('open');
+                    o.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
                 });
-
                 if (!isOpen) {
                     item.classList.add('open');
                     answer.classList.add('open');

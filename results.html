@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Results - Not_KTU_results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Loading bar */
+        #progress-bar-fill {
+            width: 0%;
+            transition: width 0.4s ease;
+            background: linear-gradient(90deg, #00a65a, #3c8dbc);
+        }
+
+        /* Grade cell scramble animation */
+        @keyframes scramble-flash {
+            0%   { color: inherit; }
+            25%  { color: #ef4444; opacity: 0.5; }
+            50%  { color: #f97316; opacity: 0.8; }
+            75%  { color: #ef4444; opacity: 0.4; }
+            100% { color: #9ca3af; opacity: 0.3; }
+        }
+        .scrambling {
+            animation: scramble-flash 0.15s ease-in-out forwards;
+            font-family: monospace;
+        }
+
+        /* Fade out entire results section before redirect */
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to   { opacity: 0; transform: translateY(-12px); }
+        }
+        .fading-out {
+            animation: fadeOut 0.8s ease-in forwards;
+        }
+
+        /* Phase labels */
+        #phase-label {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Screenshot attempt easter egg */
+        #screenshot-toast {
+            display: none;
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            z-index: 100;
+            white-space: nowrap;
+        }
+        #screenshot-toast.show {
+            display: block;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-gray-800">
+
+    <header class="header-blue text-white shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <img src="assets/logo.png" alt="Not KTU Logo" class="h-10 mr-3" onerror="this.style.display='none'">
+                        <h1 class="text-xl font-bold">Not_KTU_results e-Governance Portal</h1>
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center space-x-4">
+                    <a href="index.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="maintenance.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">Announcements</a>
+                    <a href="faq.html" class="hover:bg-sky-700 px-3 py-2 rounded-md text-sm font-medium">FAQ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 fade-in">
+        <div class="max-w-4xl mx-auto space-y-6">
+
+            <!-- Loading phase -->
+            <div id="loading-section">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h2 class="text-lg font-semibold text-gray-700">
+                            <i class="fas fa-circle-notch fa-spin mr-2 text-sky-600"></i>
+                            Fetching your results...
+                        </h2>
+                        <span id="phase-label" class="text-sm text-gray-400">Connecting to database</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar-fill" class="h-3 rounded-full"></div>
+                    </div>
+                    <p id="progress-pct" class="text-right text-xs text-gray-400 mt-1">0%</p>
+                </div>
+            </div>
+
+            <!-- Results section (hidden until loaded) -->
+            <div id="results-section" class="hidden">
+                <!-- Student info card -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-5 mb-4">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                        <div>
+                            <p class="text-gray-500">Student Name</p>
+                            <p class="font-semibold text-gray-800">ASWIN M KUMAR</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Register No.</p>
+                            <p class="font-semibold text-gray-800">TVE21EE0XX</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Programme</p>
+                            <p class="font-semibold text-gray-800">B.Tech EEE</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-500">Semester</p>
+                            <p class="font-semibold text-gray-800">S7 (2024-25)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grade table -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden mb-4">
+                    <div class="header-blue text-white px-5 py-3">
+                        <h3 class="font-semibold">Semester Grade Report</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
+                                <tr>
+                                    <th class="px-4 py-3 text-left">Course Code</th>
+                                    <th class="px-4 py-3 text-left">Course Name</th>
+                                    <th class="px-4 py-3 text-center">Credits</th>
+                                    <th class="px-4 py-3 text-center">Grade</th>
+                                    <th class="px-4 py-3 text-center">Grade Point</th>
+                                    <th class="px-4 py-3 text-center">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grade-tbody" class="divide-y divide-gray-100">
+                                <!-- Rows injected by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SGPA card -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 flex items-center justify-between">
+                    <div class="text-sm text-gray-600">
+                        Total Credits Registered: <span class="font-semibold text-gray-800" id="total-credits">0</span>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-500">SGPA</p>
+                        <p id="sgpa-value" class="text-3xl font-bold text-sky-700">—</p>
+                    </div>
+                </div>
+
+                <!-- Warning that scramble is coming (appears ~2s before) -->
+                <div id="scramble-warning" class="hidden bg-yellow-50 border border-yellow-300 text-yellow-800 text-sm p-3 rounded-lg text-center">
+                    ⚠️ Session timeout in progress. Please wait...
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Screenshot easter egg toast -->
+    <div id="screenshot-toast">📸 Nice try. The server noticed.</div>
+
+    <footer class="footer-blue text-white text-center p-4 mt-auto">
+        <p>Copyright &copy; 2025 - Not_KTU_results. Made just for fun ❤️. |
+            <a href="grievance.html" class="underline hover:text-sky-200">Raise a Grievance</a>
+        </p>
+    </footer>
+
+    <script>
+    (function () {
+        // ── Grade data ──
+        const courses = [
+            { code: 'EET401', name: 'Power Systems II',             credits: 4, grade: 'B+', gp: 8, result: 'P' },
+            { code: 'EET403', name: 'Control Systems',              credits: 4, grade: 'A',  gp: 9, result: 'P' },
+            { code: 'EET405', name: 'Power Electronics',            credits: 4, grade: 'B',  gp: 7, result: 'P' },
+            { code: 'EET407', name: 'Digital Signal Processing',    credits: 3, grade: 'A+', gp: 10,result: 'P' },
+            { code: 'EET409', name: 'Electrical Machines III',      credits: 3, grade: 'B+', gp: 8, result: 'P' },
+            { code: 'EET411', name: 'Elective: Embedded Systems',   credits: 3, grade: 'A',  gp: 9, result: 'P' },
+            { code: 'EEL401', name: 'Power Systems Lab',            credits: 2, grade: 'A+', gp: 10,result: 'P' },
+            { code: 'EEL403', name: 'Control Systems Lab',          credits: 2, grade: 'A',  gp: 9, result: 'P' },
+        ];
+
+        const scrambleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#!?*%$';
+
+        // ── Loading phases ──
+        const phases = [
+            { pct: 15, label: 'Connecting to database...' },
+            { pct: 35, label: 'Authenticating session...' },
+            { pct: 55, label: 'Retrieving grade records...' },
+            { pct: 72, label: 'Calculating SGPA...' },
+            { pct: 88, label: 'Formatting results...' },
+            { pct: 100, label: 'Done!' },
+        ];
+
+        const barFill   = document.getElementById('progress-bar-fill');
+        const pctLabel  = document.getElementById('progress-pct');
+        const phaseLabel= document.getElementById('phase-label');
+        const loadingSec= document.getElementById('loading-section');
+        const resultsSec= document.getElementById('results-section');
+        const tbody     = document.getElementById('grade-tbody');
+        const totalCred = document.getElementById('total-credits');
+        const sgpaEl    = document.getElementById('sgpa-value');
+        const scrWarn   = document.getElementById('scramble-warning');
+
+        // ── Build grade table ──
+        function buildTable() {
+            tbody.innerHTML = '';
+            let totalGP = 0, totalCr = 0;
+            courses.forEach(c => {
+                totalGP += c.gp * c.credits;
+                totalCr += c.credits;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-mono text-gray-700">${c.code}</td>
+                    <td class="px-4 py-3 text-gray-800">${c.name}</td>
+                    <td class="px-4 py-3 text-center text-gray-700">${c.credits}</td>
+                    <td class="px-4 py-3 text-center font-bold text-sky-700 grade-cell">${c.grade}</td>
+                    <td class="px-4 py-3 text-center text-gray-700 gp-cell">${c.gp}</td>
+                    <td class="px-4 py-3 text-center">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700 result-cell">${c.result}</span>
+                    </td>`;
+                tbody.appendChild(tr);
+            });
+            totalCred.textContent = totalCr;
+            const sgpa = (totalGP / totalCr).toFixed(2);
+            sgpaEl.textContent = sgpa;
+        }
+
+        // ── Progress bar animation ──
+        let phaseIdx = 0;
+        function runPhase() {
+            if (phaseIdx >= phases.length) {
+                // Show results
+                loadingSec.classList.add('hidden');
+                resultsSec.classList.remove('hidden');
+                buildTable();
+                // Begin scramble sequence after 3 seconds of blessed visibility
+                setTimeout(beginScramble, 3000);
+                return;
+            }
+            const p = phases[phaseIdx++];
+            barFill.style.width = p.pct + '%';
+            pctLabel.textContent = p.pct + '%';
+            phaseLabel.textContent = p.label;
+            // Vary delay to feel organic
+            const delay = phaseIdx === phases.length ? 300 : 600 + Math.random() * 500;
+            setTimeout(runPhase, delay);
+        }
+        setTimeout(runPhase, 400);
+
+        // ── Scramble sequence ──
+        function beginScramble() {
+            // Show warning 1s before scramble
+            scrWarn.classList.remove('hidden');
+
+            setTimeout(() => {
+                // Collect all cells to scramble
+                const gradeCells  = Array.from(document.querySelectorAll('.grade-cell'));
+                const gpCells     = Array.from(document.querySelectorAll('.gp-cell'));
+                const resultCells = Array.from(document.querySelectorAll('.result-cell'));
+                const allCells    = [...gradeCells, ...gpCells, ...resultCells];
+
+                // Scramble each cell with rapid random chars, then leave garbled
+                allCells.forEach((cell, i) => {
+                    setTimeout(() => {
+                        let ticks = 0;
+                        const interval = setInterval(() => {
+                            const rand = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                            cell.textContent = rand;
+                            cell.classList.add('scrambling');
+                            ticks++;
+                            if (ticks > 10) {
+                                clearInterval(interval);
+                                cell.textContent = scrambleChars[Math.floor(Math.random() * 8)];
+                            }
+                        }, 60);
+                    }, i * 80);
+                });
+
+                // Also scramble SGPA
+                setTimeout(() => {
+                    let t = 0;
+                    const si = setInterval(() => {
+                        sgpaEl.textContent = (Math.random() * 4 + 6).toFixed(2);
+                        t++;
+                        if (t > 12) { clearInterval(si); sgpaEl.textContent = 'ERR'; sgpaEl.classList.add('text-red-500'); }
+                    }, 80);
+                }, allCells.length * 80 + 200);
+
+                // Fade out and redirect to 504 after scramble completes
+                const totalScrambleTime = allCells.length * 80 + 1800;
+                setTimeout(() => {
+                    resultsSec.classList.add('fading-out');
+                    setTimeout(() => { window.location.href = '504.html'; }, 900);
+                }, totalScrambleTime);
+
+            }, 1000);
+        }
+
+        // ── Screenshot easter egg ──
+        // Detects PrintScreen key or Ctrl+P / Cmd+P
+        const toast = document.getElementById('screenshot-toast');
+        function showToast() {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+        document.addEventListener('keyup', (e) => {
+            if (e.key === 'PrintScreen' || (e.key === 'p' && (e.ctrlKey || e.metaKey))) {
+                e.preventDefault();
+                showToast();
+            }
+        });
+        // Visibility change (alt-tabbing away to screenshot)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && resultsSec && !resultsSec.classList.contains('hidden')) {
+                showToast();
+            }
+        });
+    })();
+    </script>
+
+</body>
+</html>

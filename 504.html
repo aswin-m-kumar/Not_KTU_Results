@@ -18,22 +18,179 @@
             align-items: flex-start;
             justify-content: center;
         }
-        .container {
+
+        /* The main 504 content — hidden until the timer fires */
+        #error-content {
+            opacity: 0;
             text-align: center;
             margin-top: 2rem;
             font-size: 1.2rem;
             color: #000000;
         }
-        /* Delayed fade-in: hidden for 10s, then fades in using the fadeIn keyframe from style.css */
-        .delayed-fade-in {
-            opacity: 0;
-            animation: fadeIn 0.6s ease-out 10s forwards;
+        #error-content.visible {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Retry button — styled like a plain browser default link/button */
+        #retry-btn {
+            margin-top: 1.2rem;
+            display: inline-block;
+            font-size: 0.95rem;
+            color: #0000EE;
+            text-decoration: underline;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        #retry-btn:hover {
+            color: #551A8B;
+        }
+
+        /* Countdown shown while waiting */
+        #countdown-wrap {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        #countdown-wrap.hidden {
+            display: none;
+        }
+        #retry-count-msg {
+            margin-top: 0.4rem;
+            font-size: 0.78rem;
+            color: #999;
+        }
+
+        /* "Connecting..." spinner row (shows during fake retry) */
+        #connecting-msg {
+            display: none;
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            color: #555;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+        #connecting-msg.show {
+            display: flex;
+        }
+        .mini-spinner {
+            display: inline-block;
+            width: 0.9rem;
+            height: 0.9rem;
+            border: 2px solid #aaa;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container delayed-fade-in">
-        <h1>504 Gateway Time-out</h1>
+
+    <!-- Shown while the "server" pretends to load -->
+    <div id="countdown-wrap">
+        <p id="countdown-text">Connecting to server...</p>
+        <div id="connecting-msg" class="show">
+            <span class="mini-spinner"></span>
+            <span id="connecting-label">Establishing connection</span>
+        </div>
+        <p id="retry-count-msg"></p>
     </div>
+
+    <!-- The actual 504 error — revealed after timer -->
+    <div id="error-content">
+        <h1>504 Gateway Time-out</h1>
+        <p style="font-size:0.9rem; color:#555; margin-top:0.5rem;">
+            The server did not respond in time.
+        </p>
+        <button id="retry-btn">Try Again</button>
+    </div>
+
+    <script>
+        (function () {
+            const errorContent   = document.getElementById('error-content');
+            const countdownWrap  = document.getElementById('countdown-wrap');
+            const countdownText  = document.getElementById('countdown-text');
+            const connectingMsg  = document.getElementById('connecting-msg');
+            const connectingLabel= document.getElementById('connecting-label');
+            const retryCountMsg  = document.getElementById('retry-count-msg');
+            const retryBtn       = document.getElementById('retry-btn');
+
+            // Sarcastic messages cycled through on each retry
+            const connectingLabels = [
+                'Establishing connection',
+                'Reconnecting to server',
+                'Attempting to reach server',
+                'Trying really hard this time',
+                'Asking the server nicely',
+                'Knocking on the server door',
+                'Bribing the server with coffee',
+                'Sending carrier pigeon to data center',
+                'Rebooting the hamster wheel',
+                'Negotiating with the firewall',
+            ];
+
+            // Sarcastic retry failure quips shown under the 504
+            const retryQuips = [
+                '(This is your 2nd attempt. The server remains unmoved.)',
+                '(Attempt #3. Hope is a beautiful thing.)',
+                '(Attempt #4. Definition of insanity loading...)',
+                '(Attempt #5. Our condolences.)',
+                '(Attempt #6. Have you tried a different browser?)',
+                '(Attempt #7. The server has filed a restraining order.)',
+                '(Attempt #8. At this point, just email your professor.)',
+                '(Attempt #9. We admire your dedication.)',
+                '(Attempt #10. Legend. Pure legend.)',
+            ];
+
+            let retryCount = 0;
+            let timerHandle = null;
+
+            function startTimer() {
+                // Reset UI
+                errorContent.classList.remove('visible');
+                errorContent.style.opacity = '0';
+                countdownWrap.classList.remove('hidden');
+                connectingMsg.classList.add('show');
+
+                // Pick a connecting label
+                connectingLabel.textContent = connectingLabels[retryCount % connectingLabels.length];
+                countdownText.textContent   = 'Connecting to server...';
+
+                // Clear any previous timer
+                if (timerHandle) clearTimeout(timerHandle);
+
+                // After 10 seconds, show the 504 error
+                timerHandle = setTimeout(() => {
+                    countdownWrap.classList.add('hidden');
+                    connectingMsg.classList.remove('show');
+                    errorContent.classList.add('visible');
+
+                    // Show sarcastic quip from attempt #2 onward
+                    if (retryCount > 0 && retryCount <= retryQuips.length) {
+                        retryCountMsg.textContent = retryQuips[retryCount - 1];
+                        retryCountMsg.style.display = 'block';
+                    }
+                }, 10000);
+            }
+
+            // Retry button — resets the whole thing
+            retryBtn.addEventListener('click', () => {
+                retryCount++;
+                retryCountMsg.style.display = 'none';
+                startTimer();
+            });
+
+            // Kick off on page load
+            startTimer();
+        })();
+    </script>
+
 </body>
 </html>
