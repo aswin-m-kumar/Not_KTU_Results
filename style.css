@@ -1,10 +1,9 @@
 /* Google Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
-/* Custom styles to match the color scheme from the images */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #eaf1f7; /* A light blue-gray background */
+    background-color: #eaf1f7;
 }
 
 .header-blue {
@@ -26,7 +25,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* FIX: Disabled state styling for save button — no hover lift when disabled */
 .login-green-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -34,10 +32,10 @@ body {
 }
 
 .icon-circle {
-    background-color: #3c8dbc30; /* A transparent version of the header blue */
+    background-color: #3c8dbc30;
 }
 
-/* Styles for the password game */
+/* Password game error flash */
 @keyframes flash-error-border {
     0%, 100% { border-color: #dc2626; }
     50% { border-color: #f87171; }
@@ -47,7 +45,7 @@ body {
     animation: flash-error-border 0.5s ease-out;
 }
 
-/* General fade-in animation for page content */
+/* Fade-in keyframe used across pages */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -59,12 +57,15 @@ body {
     }
 }
 
+/* Page-level fade in */
 .fade-in {
     animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Card hover effect */
+/* Cards on index/login — stagger via inline animation-delay */
 .card-hover {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -73,19 +74,15 @@ body {
     box-shadow: 0 8px 15px rgba(0,0,0,0.08);
 }
 
-/* FIX: card-stagger now actually animates with the delay set inline.
-   Previously, animation-delay on .card-hover had no effect because
-   there was no animation property defined on the class. */
+/* Cards on FAQ page */
 .card-stagger {
     opacity: 0;
     animation: fadeIn 0.5s ease-out forwards;
 }
 
-/* Loading spinner animation */
+/* Loading spinner */
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
 .spinner {

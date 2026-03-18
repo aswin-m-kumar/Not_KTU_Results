@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* FIX: Tailwind CDN v3 JIT does not support group-open variant via config.
-           Replace with JS-driven accordion using custom CSS transitions. */
         .faq-answer {
             max-height: 0;
             overflow: hidden;
@@ -18,7 +16,7 @@
             padding-bottom: 0;
         }
         .faq-answer.open {
-            max-height: 12rem; /* ~192px, equivalent to max-h-48 */
+            max-height: 12rem;
             padding-top: 1rem;
             padding-bottom: 0.25rem;
         }
@@ -27,11 +25,6 @@
         }
         .faq-item.open .faq-chevron {
             transform: rotate(180deg);
-        }
-        /* FIX: card-hover items had animation-delay but no animation — give them staggered fade-in */
-        .card-stagger {
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards;
         }
     </style>
 </head>
@@ -68,8 +61,6 @@
             <h2 class="text-3xl font-bold text-gray-800 mb-2 text-center">Frequently Asked Questions</h2>
             <p class="text-gray-600 mb-8 text-center">Your most pressing questions, answered with 100% accuracy (maybe).</p>
 
-            <!-- FIX: Replaced <details>/<summary> + Tailwind group-open (broken in CDN v3) with
-                 JS-driven accordion. All animations now work correctly. -->
             <div class="space-y-4" id="faq-container">
 
                 <div class="faq-item card-stagger bg-white rounded-lg shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition-shadow" style="animation-delay: 0.05s;">
@@ -141,7 +132,6 @@
     </footer>
 
     <script>
-        // FIX: JS accordion replacing broken Tailwind group-open CDN variant
         document.querySelectorAll('.faq-item').forEach(item => {
             const trigger = item.querySelector('.faq-trigger');
             const answer = item.querySelector('.faq-answer');
@@ -149,14 +139,12 @@
             trigger.addEventListener('click', () => {
                 const isOpen = item.classList.contains('open');
 
-                // Close all others (accordion behavior)
                 document.querySelectorAll('.faq-item.open').forEach(openItem => {
                     openItem.classList.remove('open');
                     openItem.querySelector('.faq-answer').classList.remove('open');
                     openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
                 });
 
-                // Toggle clicked item
                 if (!isOpen) {
                     item.classList.add('open');
                     answer.classList.add('open');

@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>504 Gateway Time-out</title>
-    <!-- Shared Stylesheet -->
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Basic styling to center the content, matching the provided image */
         html, body {
             height: 100%;
             margin: 0;
@@ -26,10 +24,9 @@
             font-size: 1.2rem;
             color: #000000;
         }
-        /* New class for the delayed fade-in effect */
+        /* Delayed fade-in: hidden for 10s, then fades in using the fadeIn keyframe from style.css */
         .delayed-fade-in {
-            opacity: 0; /* Start hidden */
-            /* Use the fadeIn animation from style.css but add a 10s delay */
+            opacity: 0;
             animation: fadeIn 0.6s ease-out 10s forwards;
         }
     </style>
